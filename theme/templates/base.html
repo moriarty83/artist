@@ -1,0 +1,24 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Django Tailwind</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    {% tailwind_css %}
+  </head>
+
+  <body class="bg-blue-50 font-serif leading-normal tracking-normal">
+    <header class="flex flex-row w-full bg-green-500 justify-between items-center px-6 h-16">
+      <h3>About</h3>
+      <h3>Events</h3>
+      <h2>Kathy Greve Watercolor</h2>
+      <h3>Gallery</h3>
+      <h3>Contact</h3>
+    </header>
+    <div class="">
+      <section class="">{% block content %} {% endblock %}</section>
+    </div>
+  </body>
+</html>
