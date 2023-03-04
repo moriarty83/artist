@@ -880,6 +880,10 @@ select {
   height: 100%;
 }
 
+.h-14 {
+  height: 3.5rem;
+}
+
 .h-24 {
   height: 6rem;
 }
@@ -890,6 +894,10 @@ select {
 
 .w-full {
   width: 100%;
+}
+
+.w-24 {
+  width: 6rem;
 }
 
 .max-w-xl {
@@ -1009,6 +1017,11 @@ select {
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+}
+
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(156, 163, 175, var(--tw-bg-opacity));
 }
 
 .bg-gray-100 {

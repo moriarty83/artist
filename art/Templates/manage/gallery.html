@@ -13,4 +13,16 @@
     <p>No images are available.</p>
     {% endif %} {% endblock %}
   </h2>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Connect to Google" />
+  </form>
+
+  <form action="/albums/" method="get">
+    {% csrf_token %}
+    <input type="submit" value="Get Albuns" />
+  </form>
+
+  <button class="h-14 w-24 bg-gray-400" onclick="{{ makeGoogleService }}">Click Me</button>
 </html>

@@ -6,19 +6,14 @@ from .models import Image
 
 from django.http import HttpResponse
 
-from .Google import Create_Service
+from google.cloud import storage
+
+import json, requests
+
 
 # Create your views here.
 
-API_NAME = 'photoslibrary'
-API_VERSION = 'v1'
-CLIENT_SECRET_FILE = 'client_secret_googlephotos.json'
-SCOPES=[
-    'https://www.googleapis.com/auth/photoslibrary'
-]
-
 class IndexView(TemplateView):
-    service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
     latest_image_list = Image.objects.order_by('-created_at')[:5]
     context = {
@@ -26,13 +21,39 @@ class IndexView(TemplateView):
     }
     template_name = 'art/index.html'
 
+
+        
 class ManageGalleryView(TemplateView):
-    
+
     latest_image_list = Image.objects.order_by('-created_at')[:5]
     context = {
         'latest_image_list': latest_image_list,
     }
     template_name = 'manage/gallery.html'
+
+    def get(self, request, *args, **kwargs):
+
+
+        return render(request, self.template_name, {'context': self.context})
+    
+
+    def post(self, request, *args, **kwargs):
+        print('post request')
+        storage_client = storage.Client()
+        bucket = storage_client.get_bucket('kcg-paint-images')
+        path = "/Users/chrismoriarty/Downloads/b18e6ed1071bfada62ff7a6e829d7b25.jpeg" 
+        blob = bucket.blob('gallery-images/zoidberg.jpg')
+        blob.upload_from_filename(path)
+        print(f"Bucket {blob} created.")
+        return render(request, self.template_name, {'context': self.context})
+        
+
+class UploadView(TemplateView):
+    template_name = 'manage/gallery.html'
+    def get(self, request, *args, **kwargs):
+        
+        print("hello world")
+        return render(request, self.template_name)
 
 
 def detail(request, id):
