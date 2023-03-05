@@ -8,6 +8,8 @@ from django.http import HttpResponse
 
 from google.cloud import storage
 
+from .forms import ImageForm
+
 import json, requests
 
 
@@ -15,7 +17,7 @@ import json, requests
 
 class IndexView(TemplateView):
 
-    latest_image_list = Image.objects.order_by('-created_at')[:5]
+    latest_image_list = Image.objects.order_by('created_at')[:5]
     context = {
         'latest_image_list': latest_image_list,
     }
@@ -25,27 +27,25 @@ class IndexView(TemplateView):
         
 class ManageGalleryView(TemplateView):
 
-    latest_image_list = Image.objects.order_by('-created_at')[:5]
-    context = {
-        'latest_image_list': latest_image_list,
-    }
+    latest_image_list = Image.objects.order_by('created_at')[:5]
+    context = {'latest_image_list': latest_image_list, 'image_form': ImageForm()}
     template_name = 'manage/gallery.html'
 
     def get(self, request, *args, **kwargs):
 
-
-        return render(request, self.template_name, {'context': self.context})
+        return render(request, self.template_name, self.context)
     
 
     def post(self, request, *args, **kwargs):
-        print('post request')
-        storage_client = storage.Client()
-        bucket = storage_client.get_bucket('kcg-paint-images')
-        path = "/Users/chrismoriarty/Downloads/b18e6ed1071bfada62ff7a6e829d7b25.jpeg" 
-        blob = bucket.blob('gallery-images/zoidberg.jpg')
-        blob.upload_from_filename(path)
-        print(f"Bucket {blob} created.")
-        return render(request, self.template_name, {'context': self.context})
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            print(form)
+            form.save()
+            # Get the current instance object to display in the template
+            img_obj = form.instance
+            self.context['img_obj'] = img_obj
+
+        return render(request, self.template_name, self.context)
         
 
 class UploadView(TemplateView):

@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  {% load static tailwind_tags %} {% block content %}
+  {% extends "../base.html" %} {% load static tailwind_tags %} {% block content %}
 
   <h2 class="bg-gray-50 text-red-500">
-    Hello Artist {% if latest_image_list %}
-    <ul>
-      {% for image in latest_image_list %}
-      <li><a href="/polls/{{ image.id }}/">{{ question.question_text }}</a></li>
-      {% endfor %}
-    </ul>
-    {% else %}
+    Hello Artist {% if latest_image_list %} {% for image in latest_image_list %}
+
+    <img src="{{ image.image.url}}" alt="connect" style="max-height: 300px" /> {% endfor %} {% else %}
     <p>No images are available.</p>
-    {% endif %} {% endblock %}
+    {% endif %}
   </h2>
 
-  <form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Connect to Google" />
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ image_form.as_p }}
+    <button type="submit">Upload</button>
   </form>
 
-  <form action="/albums/" method="get">
-    {% csrf_token %}
-    <input type="submit" value="Get Albuns" />
-  </form>
-
-  <button class="h-14 w-24 bg-gray-400" onclick="{{ makeGoogleService }}">Click Me</button>
+  {% if img_obj %}
+  <h3>Succesfully uploaded : {{img_obj.title}}</h3>
+  <img src="{{ img_obj.image.url}}" alt="connect" style="max-height: 300px" />
+  {% endif %} {% endblock %}
 </html>
