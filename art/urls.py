@@ -4,9 +4,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
+
 urlpatterns = [
     path('', views.IndexView.as_view()),
-    path('images/<int:id>/', views.detail, name='detail'),
+    path('pieces/<int:id>/', views.PieceDetail.as_view(), name='detail'),
     path('manage/gallery', views.ManageGalleryView.as_view()),
 
 ]

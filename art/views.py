@@ -1,30 +1,50 @@
 from django.shortcuts import render
 from django.template import loader
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
-from .models import Image
+from .models import Image, HeroImage, Event
 
 from django.http import HttpResponse
-
-from google.cloud import storage
+from datetime import date
 
 from .forms import ImageForm
-
-import json, requests
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 
 # Create your views here.
 
+############# USER VIEWS ################
 class IndexView(TemplateView):
+    today = date.today()
+    year_later = date(today.year + 1, today.month, today.day)
 
+    heroImage = HeroImage.objects.filter(homePage=True)[0]
+    upcoming_events = Event.objects.filter(ongoing_event = False, event_start_date__range=[today, year_later]).order_by('event_start_date')[:3]
+    ongoing_events = Event.objects.filter(ongoing_event = True, event_end_date__range=[today, year_later]).order_by('event_end_date')[:3]
     latest_image_list = Image.objects.order_by('created_at')[:5]
     context = {
         'latest_image_list': latest_image_list,
+        'hero_image': heroImage,
+        'upcoming_events': upcoming_events,
+        'ongoing_events': ongoing_events
     }
     template_name = 'art/index.html'
 
+    def get(self, request, *args, **kwargs):
 
-        
+        return render(request, self.template_name, self.context)
+
+class PieceDetail(TemplateView):
+    template_name = 'art/piece.html'
+
+    def get(self, request, *args, **kwargs):
+        image = get_object_or_404(Image, id=kwargs['id'])
+        context = {'image': image}
+        return render(request, self.template_name, context)
+    
+
+############# MANAGE VIEWS ################
+
 class ManageGalleryView(TemplateView):
 
     latest_image_list = Image.objects.order_by('created_at')[:5]
@@ -52,9 +72,6 @@ class UploadView(TemplateView):
     template_name = 'manage/gallery.html'
     def get(self, request, *args, **kwargs):
         
-        print("hello world")
         return render(request, self.template_name)
 
 
-def detail(request, id):
-    return HttpResponse("You're looking at imge %s." % id)

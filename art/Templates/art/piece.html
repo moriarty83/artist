@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% extends '../base.html' %} {% load static tailwind_tags %}
+  </head>
+  <body>
+    {% block content %}
+      {% if image %}
+        <h2>{{ image.title }}</h2>
+        <img src="{{ image.image.url }}" alt="connect" style="max-height: 300px" />
+        <p>{{ image.description }}</p>
+        {% if image.for_sale %}
+          <h3>{{ image.price }}</h3>
+          <button type="button">Inquire about this piece</button>
+        {% endif %}
+      {% else %}
+        <p>No image available.</p>
+      {% endif %}
+    {% endblock %}
+  </body>
+</html>
