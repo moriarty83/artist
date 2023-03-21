@@ -913,12 +913,12 @@ select {
   height: 6rem;
 }
 
-.min-h-\[600px\] {
-  min-height: 600px;
-}
-
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-\[600px\] {
+  min-height: 600px;
 }
 
 .w-full {
@@ -1050,6 +1050,10 @@ select {
   background-color: rgba(239, 246, 255, var(--tw-bg-opacity));
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
 .bg-green-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
@@ -1068,15 +1072,6 @@ select {
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
-}
-
-.bg-transparent {
-  background-color: transparent;
-}
-
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(209, 213, 219, var(--tw-bg-opacity));
 }
 
 .object-cover {
@@ -1213,6 +1208,15 @@ select {
 
 .filter {
   filter: var(--tw-filter);
+}
+
+.mat {
+  box-sizing: border-box;
+  margin: 4rem auto;
+  padding: 2%;
+  background: #f4f0ec;
+  border: 8px solid #333;
+  box-shadow: 0 0 0 10px rgba(125, 135, 18, 0.3) inset;
 }
 
 .focus\:border-indigo-300:focus {
