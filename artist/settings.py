@@ -44,14 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'tailwind',
     'theme',
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'django.contrib.sites',
 ]
 
@@ -74,7 +69,7 @@ ROOT_URLCONF = 'artist.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates/'], # HERE
+        'DIRS': ['templates/'],  # HERE
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -158,7 +153,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
 SITE_ID = 2

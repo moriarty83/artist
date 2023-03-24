@@ -9,23 +9,18 @@
     {% tailwind_css %}
   </head>
 
-  <body class="bg-blue-50 min-h-screen font-serif leading-normal tracking-normal">
-    <header class="flex flex-row w-full justify-between items-center bg-transparent absolute top-0 left-0 px-6 h-16 z-10">
-      <h3>About</h3>
-      <h3>Events</h3>
-      <h2>Kathy Greve Watercolor</h2>
-      <h3>Gallery</h3>
-      <h3>Contact</h3>
-    </header>
-    <div class="">
-      <section class="">
+  <body class="bg-blue-50 relative min-h-screen font-serif leading-normal tracking-normal">
+    {% include './Components/header.html' %}
+
+      <section class="pb-16">
         {% block content %}
 
         {% endblock %}
       </section>
-    </div>
-    <footer class="flex flex-row w-full bg-green-500 justify-between items-center px-6 h-16">
+
+    <footer class="flex flex-row w-full absolute bottom-0 left-0 bg-green-500 justify-between items-center px-6 h-16">
       <h3>This is the Footer</h3>
+      <a href="/manage/login">Login</a>
     </footer>
   </body>
 </html>
