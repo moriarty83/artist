@@ -4,6 +4,7 @@ from django.views.generic import TemplateView, DetailView
 from django.contrib.auth import authenticate, login
 
 from .models import Image, HeroImage, Event
+from .forms import ImageForm
 
 from django.http import HttpResponse
 from datetime import date
@@ -14,7 +15,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 
 # Create your views here.
 
-############# USER VIEWS ################
+############# INDEX VIEW ################
 class IndexView(TemplateView):
     today = date.today()
     year_later = date(today.year + 1, today.month, today.day)
@@ -37,17 +38,32 @@ class IndexView(TemplateView):
 
         return render(request, self.template_name, self.context)
 
+############# SHOW VIEW ################
+
 
 class PieceDetail(TemplateView):
     template_name = 'art/piece.html'
 
     def get(self, request, *args, **kwargs):
         image = get_object_or_404(Image, id=kwargs['id'])
-        context = {'image': image}
+        context = {'image': image,
+                   'manage': False}
+        if request.user.is_authenticated:
+            context['manage'] = True
+            context['form'] = ImageForm(instance=image)
         return render(request, self.template_name, context)
 
+    def post(self, request, *args, **kwargs):
 
-############# MANAGE VIEWS ################
+        imageForm = ImageForm(request.POST or None)
+        if imageForm.is_valid():
+            print("imageForm: ", imageForm.cleaned_data.get('title'))
+        else:
+            print("form invalid")
+        return render(request, self.template_name)
+
+############# GALLERY VIEW ################
+
 
 class GalleryView(TemplateView):
 
@@ -59,7 +75,6 @@ class GalleryView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            print(request.user)
             self.context['manage'] = True
         return render(request, self.template_name, self.context)
 

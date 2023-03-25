@@ -6,7 +6,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.IndexView.as_view()),
-    path('pieces/<int:id>/', views.PieceDetail.as_view(), name='detail'),
+    path('gallery/<int:id>/', views.PieceDetail.as_view(), name='detail'),
     path('gallery', views.GalleryView.as_view()),
     path('user/login', views.LoginView.as_view())
 

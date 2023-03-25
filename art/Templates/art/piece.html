@@ -5,6 +5,8 @@
   </head>
   <body>
     {% block content %}
+    <div class="pt-16">
+      <div>
       {% if image %}
         <h2>{{ image.title }}</h2>
         <img src="{{ image.image.url }}" alt="connect" style="max-height: 300px" />
@@ -16,6 +18,43 @@
       {% else %}
         <p>No image available.</p>
       {% endif %}
+    </div>
+    {% if manage %}
+    <div>
+      <button onclick="toggleForm()" type="button">Edit</button>
+    </div>
+    <div>
+
+<form id="edit-piece-form" class="hidden" action="/art/gallery/{{ image.id }}/" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
+  </form>
+    </div>
+    
+    {% endif %}
+  </div>
+  <script>
+    //////////// JAVASCRIPT VARIABLES ////////////
+    let showForm = false
+
+    //////////// GET ELEMENTS ////////////
+    const form = document.getElementById('edit-piece-form')
+
+    //////////// METHODS ////////////
+    const toggleForm = ()=>{
+      showForm = !showForm
+      if(showForm){
+        form.classList.remove('hidden')
+      }
+      else{
+        form.classList.add('hidden')
+      }
+    }
+
+
+
+  </script>
     {% endblock %}
   </body>
 </html>
