@@ -1,6 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.template import loader
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, UpdateView
 from django.contrib.auth import authenticate, login
 
 from .models import Image, HeroImage, Event
@@ -54,13 +55,23 @@ class PieceDetail(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-
         imageForm = ImageForm(request.POST or None)
         if imageForm.is_valid():
-            print("imageForm: ", imageForm.cleaned_data.get('title'))
+            image = get_object_or_404(Image, id=kwargs['id'])
+            image.title = imageForm.cleaned_data.get('title')
+            image.save()
+
         else:
             print("form invalid")
-        return render(request, self.template_name)
+        return redirect('/')
+
+############# UPDATE VIEW ################
+
+
+class PieceUpdateView(UpdateView):
+    model = Image
+    fields = ['name']
+    template_name_suffix = '_update_form'
 
 ############# GALLERY VIEW ################
 

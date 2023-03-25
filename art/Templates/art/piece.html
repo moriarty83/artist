@@ -24,8 +24,8 @@
       <button onclick="toggleForm()" type="button">Edit</button>
     </div>
     <div>
-
-<form id="edit-piece-form" class="hidden" action="/art/gallery/{{ image.id }}/" method="post">
+{{ image.id}}
+<form id="edit-piece-form" class="hidden" method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Submit">
