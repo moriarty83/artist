@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% extends "../base.html" %} {% load static tailwind_tags %}
+  </head>
+  <body> 
+    {% block content %}
+    <div class="pt-16">
+        <div>{% include '../Components/events.html' with events=upcoming_events title='Upcoming Events' %}</div>
+        <div>{% include '../Components/events.html' with events=ongoing_events title='Ongoing Events' %}</div>
+        <div>{% include '../Components/events.html' with events=past_events title='Past Events' %}</div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
