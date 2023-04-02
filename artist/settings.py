@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'django.contrib.sites',
+    'mathfilters'
 ]
 
 TAILWIND_APP_NAME = 'theme'

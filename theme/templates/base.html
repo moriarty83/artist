@@ -9,16 +9,16 @@
     {% tailwind_css %}
   </head>
 
-  <body class="bg-blue-50 relative min-h-screen font-serif leading-normal tracking-normal">
-    {% include './Components/header.html' %}
+  <body class="bg-[#BDCDD6] relative min-h-screen font-serif leading-normal tracking-normal">
+      Posible Font: Montserrat, Quicksand, Cinzel
+      {% include './Components/header.html' %}
 
-      <section class="pb-16">
+
+      <section class="flex flex-col w-3/4 bg-[#F7F5EB] mx-auto my-8 p-8 shadow-lg">
         {% block content %}
 
         {% endblock %}
       </section>
-
-      {% include './Components/footer.html' %}
 
   </body>
 </html>

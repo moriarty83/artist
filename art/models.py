@@ -6,6 +6,7 @@ from django.db import models
 class Image(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='images', default=None, blank=True)
+    media = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     date = models.DateField(blank=True)
     for_sale = models.BooleanField(blank=True)

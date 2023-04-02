@@ -28,9 +28,10 @@ class IndexView(TemplateView):
                                            today, year_later]).order_by('event_start_date')[:3]
     ongoing_events = Event.objects.filter(ongoing_event=True, event_end_date__range=[
                                           today, year_later]).order_by('event_end_date')[:3]
-    latest_image_list = Image.objects.order_by('created_at')[:5]
+    featured_images = Image.objects.filter(
+        featured=True).order_by('created_at')
     context = {
-        'latest_image_list': latest_image_list,
+        'featured_images': featured_images,
         'hero_image': heroImage,
         'upcoming_events': upcoming_events,
         'ongoing_events': ongoing_events
@@ -87,10 +88,13 @@ class PieceDetail(TemplateView):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        print(args)
+        print(kwargs)
         imageForm = ImageForm(request.POST or None)
         if imageForm.is_valid():
             image = get_object_or_404(Image, id=kwargs['id'])
             image.title = imageForm.cleaned_data.get('title')
+            image.media = imageForm.cleaned_data.get('media')
             image.description = imageForm.cleaned_data.get('description')
             image.date = imageForm.cleaned_data.get('date')
             image.for_sale = imageForm.cleaned_data.get('for_sale')
@@ -100,10 +104,10 @@ class PieceDetail(TemplateView):
                 image.image = imageForm.cleaned_data.get('image')
 
             image.save()
-
+            print(image.id)
         else:
             print("form invalid")
-        return redirect('/art/gallery/{}', image.id)
+        return redirect('/art/gallery/{}'.format(image.id))
 
 ###########################################
 ################ EVENTS ###################
@@ -146,6 +150,32 @@ class EventDetail(TemplateView):
             context['manage'] = True
             context['form'] = EventForm(instance=event)
         return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        eventForm = EventForm(request.POST or None)
+        if eventForm.is_valid():
+            event = get_object_or_404(Event, id=kwargs['id'])
+            event.event_name = eventForm.cleaned_data.get('event_name')
+            event.description = eventForm.cleaned_data.get('description')
+            event.ongoing_event = eventForm.cleaned_data.get('ongoing_event')
+            event.event_start_date = eventForm.cleaned_data.get(
+                'event_start_date')
+            event.event_time = eventForm.cleaned_data.get('event_time')
+            event.event_end_date = eventForm.cleaned_data.get('event_end_date')
+            event.event_address = eventForm.cleaned_data.get('event_address')
+            event.event_city = eventForm.cleaned_data.get('event_city')
+            event.event_state = eventForm.cleaned_data.get('event_state')
+            event.event_zip = eventForm.cleaned_data.get('event_zip')
+
+            if eventForm.cleaned_data.get('image') != None:
+                event.image = eventForm.cleaned_data.get('image')
+
+            event.save()
+
+        else:
+            print("form invalid")
+        return redirect('/art/gallery/{}', event.id)
+
     ###########################################
     ################ ACCOUNT ###################
     ###########################################

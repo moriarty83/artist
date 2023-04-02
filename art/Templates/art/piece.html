@@ -5,56 +5,63 @@
   </head>
   <body>
     {% block content %}
-    <div class="pt-16">
+    <div class="flex flex-col justify-start items-center">
       <div>
-      {% if image %}
-        <h2>{{ image.title }}</h2>
-        <img src="{{ image.image.url }}" alt="connect" style="max-height: 300px" />
-        <p>{{ image.description }}</p>
+        {% if image %}
+        <h2 class="text-2xl text-center mb-8">{{ image.title }}</h2>
+        <img src="{{ image.image.url }}" alt="connect" class="max-h-screen object-contain" />
+        <div class="flex flex-row justify-between w-full text-lg">
+          <h4>{{ image.media}}</h4>
+          {% if image.for_sale %}
+          <h3 class="text-xl">Price: ${{ image.price }}</h3>
+          {% endif %}
+          <h4>{{ image.date }}</h4>
+        </div>
+        <div class="flex flex-col justify-start mx-auto w-full px-8 mt-8">
+          <p class="text-center">{{ image.description}}</p>
+        </div>
         {% if image.for_sale %}
-          <h3>{{ image.price }}</h3>
-          <button type="button">Inquire about this piece</button>
-        {% endif %}
-      {% else %}
+        <div class="flex flex-row w-full justify-center mt-8 mx-auto">
+          <button class="button-71 w-56" type="button">
+            Inquire about this piece
+          </button>
+        </div>
+        {% endif %} {% else %}
         <p>No image available.</p>
+        {% endif %}
+      </div>
+      {% if manage %}
+      <div class="flex flex-row w-full justify-center mt-8 mx-auto" >
+        <button class="button-71 w-56" type="button" onclick="toggleForm()" >
+          Edit
+        </button>
+      </div>
+      <div>
+        <form id="edit-piece-form" class="hidden" method="post">
+          {% csrf_token %} {{ form.as_p }}
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+
       {% endif %}
     </div>
-    {% if manage %}
-    <div>
-      <button onclick="toggleForm()" action="/gallery/{{ image.id }}" type="button">Edit</button>
-    </div>
-    <div>
-{{ image.id}}
-<form id="edit-piece-form" class="hidden" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit">
-  </form>
-    </div>
-    
-    {% endif %}
-  </div>
-  <script>
-    //////////// JAVASCRIPT VARIABLES ////////////
-    let showForm = false
+    <script>
+      //////////// JAVASCRIPT VARIABLES ////////////
+      let showForm = false;
 
-    //////////// GET ELEMENTS ////////////
-    const form = document.getElementById('edit-piece-form')
+      //////////// GET ELEMENTS ////////////
+      const form = document.getElementById("edit-piece-form");
 
-    //////////// METHODS ////////////
-    const toggleForm = ()=>{
-      showForm = !showForm
-      if(showForm){
-        form.classList.remove('hidden')
-      }
-      else{
-        form.classList.add('hidden')
-      }
-    }
-
-
-
-  </script>
+      //////////// METHODS ////////////
+      const toggleForm = () => {
+        showForm = !showForm;
+        if (showForm) {
+          form.classList.remove("hidden");
+        } else {
+          form.classList.add("hidden");
+        }
+      };
+    </script>
     {% endblock %}
   </body>
 </html>
