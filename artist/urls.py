@@ -20,7 +20,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="base.html")),
+    #path("", TemplateView.as_view(template_name="base.html")),
     path('', include('art.urls')),
     path('art/', include('art.urls')),
     path('admin/', admin.site.urls),
