@@ -38,7 +38,7 @@
       </div>
       <div>
         <form id="edit-piece-form" class="hidden" method="post">
-          {% csrf_token %} {{ form.as_p }}
+          {% csrf_token %} {{ form.as_table }}
           <input type="submit" value="Submit" />
         </form>
       </div>

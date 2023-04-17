@@ -7,17 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     {% tailwind_css %}
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap');
+    </style>
   </head>
-
-  <body class="bg-[#BDCDD6] relative min-h-screen font-serif leading-normal tracking-normal">
-      {% include './Components/header.html' %}
-
-
-      <section class="flex flex-col w-3/4 bg-[#F7F5EB] mx-auto my-8 p-8 shadow-lg">
-        {% block content %}
-
-        {% endblock %}
-      </section>
-
+  <body class="bg-[#BDCDD6] relative min-h-screen leading-normal tracking-normal">
+    {% include "./Components/header.html" %}
+    <section class="flex flex-col w-3/4 bg-[#F7F5EB] mx-auto my-8 p-8 shadow-lg">
+      {% block content %}
+      {% endblock content %}
+    </section>
   </body>
 </html>
