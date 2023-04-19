@@ -12,6 +12,7 @@ class Image(models.Model):
     for_sale = models.BooleanField(blank=True)
     sold = models.BooleanField(blank=True)
     price = models.IntegerField(blank=True, null=True)
+    home_page = models.BooleanField(default=False)
     featured = models.BooleanField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

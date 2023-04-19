@@ -7,6 +7,22 @@
     {% block content %}
     <div class="pt-16">
       <div>
+        {% for event in events %}
+        <div>
+          <h2>{{event.event_name}}</h2>
+          <a
+          href="gallery/{{ image.id }}"
+          class="col-span-1 h-80 flex flex-col justify-center items-start p-2"
+          >
+          <img
+          src="{{ image.image.url }}"
+          alt="connect"
+          class="col-span-1 h-full mat relative"
+          style="max-height: 300px"
+          />
+        </a>
+      </div>
+        {% endfor %}
       {% if event %}
         <h2>{{ event.event_name }}</h2>
         

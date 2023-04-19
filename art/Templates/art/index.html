@@ -6,10 +6,8 @@
   <body>
     {% block content %}
     <div>{% include '../Components/hero.html' %}</div>
-    <div>{% include '../Components/featured_pieces.html'  with featured_images=featured_images title='Featured Pieces' %}</div>
-    <div>{% include '../Components/events.html' with events=upcoming_events title='Upcoming Events' %}</div>
-    <div>{% include '../Components/events.html' with events=ongoing_events title='Ongoing Events' %}</div>
-
+    <div>{% include '../Components/featured_pieces.html'  with featured_images=featured_images title='Featured Pieces'  %}</div>
+    <div>{% include '../Components/featured_events.html' with events=featured_events title='Featured Events' %}</div>
     {% endblock %}
   </body>
 </html>

@@ -23,21 +23,23 @@ class IndexView(TemplateView):
     today = date.today()
     year_later = date(today.year + 1, today.month, today.day)
 
-    heroImage = HeroImage.objects.filter(homePage=True)[0]
-    upcoming_events = Event.objects.filter(ongoing_event=False, event_start_date__range=[
+    heroImage = Image.objects.filter(
+        home_page=True).order_by('created_at')[0]
+    featured_events = Event.objects.filter(event_start_date__range=[
                                            today, year_later]).order_by('event_start_date')[:3]
-    ongoing_events = Event.objects.filter(ongoing_event=True, event_end_date__range=[
-                                          today, year_later]).order_by('event_end_date')[:3]
     featured_images = Image.objects.filter(
         featured=True).order_by('created_at')
     context = {
+        'manage': False,
         'featured_images': featured_images,
         'hero_image': heroImage,
-        'upcoming_events': upcoming_events,
-        'ongoing_events': ongoing_events
+        'featured_events': featured_events,
     }
 
+
     def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            self.context['manage'] = True
 
         return render(request, self.template_name, self.context)
 

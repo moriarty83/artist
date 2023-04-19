@@ -1,3 +1,10 @@
 <div id="home-hero" class="w-full min-h-[600px] h-[90vh] relative">
   <img alt="Kathy Greve Painting hero Image" class="object-cover w-full h-full content-center" src="{{ hero_image.image.url}}" />
+  {% if manage == True %}
+  <a href="/gallery" class="absolute top-2 left-2 flex flex-row justify-center" >
+    <button class="button-71 w-56" type="button" >
+      Change
+    </button>
+  </a>
+  {% endif %}
 </div>
