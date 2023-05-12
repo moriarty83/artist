@@ -1,31 +1,28 @@
 {% load mathfilters %}
 
-<div class="grid grid-cols-4 grid-flow-row-dense gap-2 items-center mt-6 ">
-  {% for image in featured_images %} 
-    {% with ratio=image.image.width|div:image.image.height %}
-      {% if ratio < 1.25 %} 
-      <img
-      alt="Kathy Greve Painting featured painting"
-      class="object-scale col-span-2 w-full h-72 content-center object-cover shadow-md"
-      src="{{ image.image.url }}"
-      />
-          
-      {% elif ratio < 1.75 %}
-      <img
-      alt="Kathy Greve Painting featured painting"
-      class="object-scale col-span-2 w-full h-72 content-center object-cover shadow-md"
-      src="{{ image.image.url }}"
-      />
-      {% else %}
-      <img
-      alt="Kathy Greve Painting featured painting"
-      class="object-scale col-span-3 w-full h-72 content-center object-cover shadow-md"
-      src="{{ image.image.url }}"
-      />
-    {% endif %}
-  {% endwith %} 
-{% endfor %}
+<div class="grid grid-cols-4 grid-flow-row-dense gap-2 items-center mt-6">
+  {% for image in featured_images %} {% if image.home_page == False %} 
+  {% with ratio=image.image.width|div:image.image.height %} 
+  {% if ratio < 1.25 %}
+  <img
+    alt="Kathy Greve Painting featured painting"
+    class="object-scale col-span-2 w-full h-72 content-center object-cover shadow-md"
+    src="{{ image.image.url }}"
+  />
 
+  {% elif ratio < 1.75 %}
+  <img
+    alt="Kathy Greve Painting featured painting"
+    class="object-scale col-span-2 w-full h-72 content-center object-cover shadow-md"
+    src="{{ image.image.url }}"
+  />
+  {% else %}
+  <img
+    alt="Kathy Greve Painting featured painting"
+    class="object-scale col-span-3 w-full h-72 content-center object-cover shadow-md"
+    src="{{ image.image.url }}"
+  />
+  {% endif %} {% endwith %}{% endif %} {% endfor %}
 </div>
 <div class="flex flex-row w-full justify-start mt-2 mx-auto">
   <a href="/gallery">

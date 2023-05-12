@@ -15,7 +15,6 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-print("hello")
 print(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

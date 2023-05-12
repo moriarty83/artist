@@ -10,6 +10,38 @@
         <div>{% include '../Components/events.html' with events=ongoing_events title='Ongoing Events' %}</div>
         <div>{% include '../Components/events.html' with events=past_events title='Past Events' %}</div>
     </div>
+    {% if manage %}
+
+      <div class="flex flex-row w-full justify-center mt-8 mx-auto" >
+        <button class="button-71 w-56" type="button" onclick="toggleForm()" >
+          Add Event
+        </button>
+      </div>
+      <div id="add-event-form" class="hidden">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %} {{ event_form.as_table }}
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      {% endif %}
+
+      <script>
+        //////////// JAVASCRIPT VARIABLES ////////////
+        let showForm = false;
+  
+        //////////// GET ELEMENTS ////////////
+        const form = document.getElementById("add-event-form");
+  
+        //////////// METHODS ////////////
+        const toggleForm = () => {
+          showForm = !showForm;
+          if (showForm) {
+            form.classList.remove("hidden");
+          } else {
+            form.classList.add("hidden");
+          }
+        };
+      </script>
     {% endblock %}
   </body>
 </html>

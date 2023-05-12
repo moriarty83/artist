@@ -10,17 +10,56 @@
       {% if latest_image_list %}
       <div class="grid lg:grid-cols-3 grid-cols-2 mb-6 mx-auto">
         {% for image in latest_image_list %}
-        <a
-          href="gallery/{{ image.id }}"
-          class="col-span-1 h-80 flex flex-col justify-center items-start p-2"
-        >
-          <img
-            src="{{ image.image.url }}"
-            alt="connect"
-            class="col-span-1 h-full mat relative"
-            style="max-height: 300px"
-          />
-        </a>
+        <div>
+          <a
+            href="gallery/{{ image.id }}"
+            class="col-span-1 h-80 flex flex-col justify-center items-start p-2"
+          >
+            <img
+              src="{{ image.image.url }}"
+              alt="connect"
+              class="col-span-1 h-full mat relative"
+              style="max-height: 300px"
+            />
+          </a>
+          {% if manage == True %}
+
+          <form method="post" name="set_homepage" action="/{{ image.id}}/">
+            {% csrf_token %}
+            <p>
+              Homepage:
+              {% if image.home_page == True %} 
+              <button class="text-xl" type="button">
+                &#9745
+              </button>
+              {% else %}
+              <button class="text-xl" type="submit">
+                &#9744
+              </button>
+              {%endif %}
+            </p>
+          </form>
+          <form
+            method="post"
+            name="feature_image"
+            action="/gallery/{{ image.id}}/"
+          >
+            {% csrf_token %}
+            <p>
+              Featured:
+              {% if image.featured == True %} 
+              <button class="text-xl" type="submit">
+                &#9745
+              </button>
+              {% else %}
+              <button class="text-xl" type="submit">
+                &#9744
+              </button>
+              {%endif %}
+            </p>
+          </form>
+          {% endif %}
+        </div>
         {% endfor %}
       </div>
       {% else %}
@@ -41,6 +80,9 @@
       />
       {% endif %} {% endif %}
     </div>
+    <script>
+
+    </script>
     {% endblock %}
   </body>
 </html>

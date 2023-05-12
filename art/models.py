@@ -36,7 +36,8 @@ class HeroImage(models.Model):
 class Event(models.Model):
     event_name = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to='images', default=None)
+    image = models.ImageField(upload_to='images', default=None, blank=True)
+    featured = models.BooleanField(default = False)
     ongoing_event = models.BooleanField(default=False)
     event_start_date = models.DateField()
     event_time = models.TimeField()

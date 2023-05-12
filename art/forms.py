@@ -26,5 +26,15 @@ class EventForm(forms.ModelForm):
     """Form for the event model"""
     class Meta:
         model = Event
-        fields = ('event_name', 'description', 'image', 'ongoing_event', 'event_start_date',
+        fields = ('event_name', 'description', 'image', 'featured', 'ongoing_event', 'event_start_date',
                   'event_time', 'event_end_date', 'event_address', 'event_city', 'event_state', 'event_zip')
+        widgets = {
+            'event_name': forms.TextInput(attrs={'class': 'flex flex-row space-x-4 mb-6'}),
+            'description': forms.Textarea(attrs={'rows': '4', 'cols':'50', 'class': 'flex flex-row space-x-4 mb-6'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'flex flex-row space-x-4 mb-6'}),
+            'featured': forms.CheckboxInput(attrs={'class': 'flex flex-row space-x-4 mb-6'}),
+            'ongoing_event': forms.CheckboxInput(attrs={'class': 'flex flex-row space-x-4 mb-6'}),
+            'event_time': forms.TimeInput(attrs={'type': 'time', 'class': 'flex flex-row space-x-4 mb-6'}),
+            'event_start_date': forms.DateInput(attrs={'type': 'date', 'class': 'flex flex-row space-x-4 mb-6'}),
+            'event_end_date': forms.DateInput(attrs={'type': 'date', 'class': 'flex flex-row space-x-4 mb-6'}),
+        }
